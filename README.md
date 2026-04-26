@@ -13,11 +13,14 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Features
 
 - **Camera capture / gallery upload** — identify any plant from a photo.
-- **Hugging Face identification** — plant photos are classified by an HF
-  `image-classification` model (default: `dima806/medicinal_plants_image_detection`).
-  Override at runtime with `HF_MODEL_ID`. Plant.id and Pl@ntNet factory
-  constructors are retained on `IdentificationResult` so you can swap
-  providers without a refactor.
+- **Hugging Face identification** — plant photos are classified by a
+  medicinal-plants ViT (`dima806/medicinal_plants_image_detection`) hosted
+  in a dedicated [Hugging Face Space](https://huggingface.co/spaces/EdgarPhiri1/african-doctor-classifier).
+  The Space exposes a `POST /api/classify` REST endpoint. **Anonymous
+  access** — no API token required in the default configuration. Point
+  `HF_ENDPOINT_URL` at your own Space or Inference Endpoint to override.
+  Plant.id and Pl@ntNet factory constructors are retained on
+  `IdentificationResult` for future provider-switches.
 - **85 % confidence threshold** — below this, the app refuses to display
   traditional-medicine information and tells the user to consult a local
   expert.
@@ -42,11 +45,14 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Prerequisites
 
 - Flutter **≥ 3.41** (stable channel).
-- A [Hugging Face account](https://huggingface.co/join) with a Read-only
-  [API token](https://huggingface.co/settings/tokens). Signup is 30 seconds,
-  email + password, no approval.
 - A [YouTube Data API v3 key](https://console.cloud.google.com/apis/credentials)
-  (free quota).
+  (free quota) — this is the **only** credential required.
+
+> Plant identification uses the project's public HF Space; no Hugging Face
+> account or token is required to run the app. If you want to host the
+> classifier yourself (e.g. for production), create a Space and set
+> `HF_ENDPOINT_URL` in your `.env` — see the code comments in
+> `lib/services/huggingface_service.dart`.
 
 ## Configuration
 
@@ -60,15 +66,13 @@ cp .env.example .env
 
 # Option B — pass keys at build/run time (recommended for CI)
 flutter run \
-  --dart-define=HF_API_TOKEN=hf_xxx \
   --dart-define=YOUTUBE_API_KEY=yk_xxx
 ```
 
-If `HF_API_TOKEN` is missing the identification screen shows an error and
-links to the HF signup page. If `YOUTUBE_API_KEY` is missing the "Community
-wisdom" section simply renders a note asking the user to add a key — the
-rest of the app works fine (the offline seed library and scan history do
-not need any keys).
+If `YOUTUBE_API_KEY` is missing the "Community wisdom" section simply
+renders a note asking the user to add a key — the rest of the app works
+fine (the offline seed library, identification, and scan history do not
+need any credentials).
 
 ## Running
 

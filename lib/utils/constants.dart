@@ -14,16 +14,19 @@ class AppConstants {
   /// Maximum Pl@ntNet suggestions to consider from the API response.
   static const int maxSuggestions = 5;
 
-  /// Hugging Face Inference router base URL. The full endpoint is
+  /// Default Hugging Face Space that hosts the medicinal-plants classifier
+  /// and exposes a public `POST /api/classify` endpoint. Override at
+  /// runtime with the `HF_ENDPOINT_URL` env var. Anonymous access — no
+  /// API token required for public Spaces.
+  static const String defaultHfSpaceUrl =
+      'https://edgarphiri1-african-doctor-classifier.hf.space';
+
+  /// Hugging Face Inference router (fallback path used when HF_MODEL_ID is
+  /// set and HF_ENDPOINT_URL is not). The full URL is
   /// `$huggingFaceRouter/$modelId`. See
   /// https://huggingface.co/docs/inference-providers/.
   static const String huggingFaceRouter =
       'https://router.huggingface.co/hf-inference/models';
-
-  /// Default image-classification model fine-tuned on medicinal plants.
-  /// Override at runtime with the `HF_MODEL_ID` env var.
-  static const String defaultHuggingFaceModel =
-      'dima806/medicinal_plants_image_detection';
 
   /// Plant.id v3 identification endpoint — kept so a future session can
   /// swap providers back.
