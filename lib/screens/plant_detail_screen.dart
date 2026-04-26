@@ -165,8 +165,11 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Text(
-                        'No community videos available. Add a YOUTUBE_API_KEY '
-                        'to your .env file to enable this section.',
+                        YouTubeService.hasApiKey
+                            ? 'No community videos found for this plant.'
+                            : 'No community videos available. Add a '
+                                'YOUTUBE_API_KEY to your .env file to enable '
+                                'this section.',
                         style: theme.textTheme.bodyMedium,
                       ),
                     ),
