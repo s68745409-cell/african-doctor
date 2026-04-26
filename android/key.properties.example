@@ -1,0 +1,6 @@
+# Copy to key.properties and fill in before building release AAB/APK.
+# key.properties is gitignored.
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=african-doctor
+storeFile=/absolute/path/to/african-doctor.keystore
