@@ -20,39 +20,56 @@ void main() {
   });
 
   test('Lookup matches exact scientific name', () async {
-    final p = await PlantRepository.instance.lookup('Moringa oleifera');
-    expect(p, isNotNull);
-    expect(p!.commonNames.first, 'Moringa');
+    final match = await PlantRepository.instance.lookup('Moringa oleifera');
+    expect(match.plant, isNotNull);
+    expect(match.matchType, PlantMatchType.exactScientific);
+    expect(match.plant!.commonNames.first, 'Moringa');
   });
 
   test('Lookup is case insensitive', () async {
-    final p =
-        await PlantRepository.instance.lookup('aloe vera');
-    expect(p, isNotNull);
-    expect(p!.scientificName, 'Aloe vera');
+    final match = await PlantRepository.instance.lookup('aloe vera');
+    expect(match.plant, isNotNull);
+    expect(match.matchType, PlantMatchType.exactScientific);
+    expect(match.plant!.scientificName, 'Aloe vera');
   });
 
-  test('Lookup falls back to genus match', () async {
-    final p =
+  test('Lookup does NOT silently fall back to a sibling species (safety)',
+      () async {
+    // Aloe arborescens is not in the seed DB. Returning Aloe vera would be a
+    // safety bug — different Aloe species have different toxicity profiles.
+    final match =
         await PlantRepository.instance.lookup('Aloe arborescens');
-    expect(p, isNotNull);
-    expect(p!.scientificName.startsWith('Aloe'), isTrue);
+    expect(match.plant, isNull);
+    expect(match.matchType, PlantMatchType.none);
   });
 
-  test('Lookup returns null for unknown species', () async {
-    final p = await PlantRepository.instance.lookup('Quercus robur');
-    expect(p, isNull);
+  test('Lookup returns none for unknown species', () async {
+    final match = await PlantRepository.instance.lookup('Quercus robur');
+    expect(match.plant, isNull);
+    expect(match.matchType, PlantMatchType.none);
   });
 
   test('Lookup matches common name (Hugging Face label)', () async {
-    final p = await PlantRepository.instance.lookup('Moringa');
-    expect(p, isNotNull);
-    expect(p!.scientificName, 'Moringa oleifera');
+    final match = await PlantRepository.instance.lookup('Moringa');
+    expect(match.plant, isNotNull);
+    expect(match.matchType, PlantMatchType.exactCommonName);
+    expect(match.plant!.scientificName, 'Moringa oleifera');
   });
 
-  test('Lookup matches by substring for noisy HF labels', () async {
-    final p = await PlantRepository.instance.lookup('papaya plant leaf');
-    expect(p, isNotNull);
-    expect(p!.scientificName, 'Carica papaya');
+  test('Lookup matches noisy HF labels that contain a full common name',
+      () async {
+    final match =
+        await PlantRepository.instance.lookup('papaya plant leaf');
+    expect(match.plant, isNotNull);
+    expect(match.matchType, PlantMatchType.extendedExact);
+    expect(match.plant!.scientificName, 'Carica papaya');
+  });
+
+  test('Lookup matches labels that contain the full binomial', () async {
+    final match = await PlantRepository.instance
+        .lookup('Moringa oleifera leaf (fresh)');
+    expect(match.plant, isNotNull);
+    expect(match.matchType, PlantMatchType.extendedExact);
+    expect(match.plant!.scientificName, 'Moringa oleifera');
   });
 }

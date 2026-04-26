@@ -19,6 +19,18 @@ class YouTubeService {
 
   final http.Client _client;
 
+  /// True when a YOUTUBE_API_KEY is configured (via --dart-define or .env).
+  /// Callers should skip caching "no videos" results when this is false so
+  /// that videos appear immediately after a key is later added, instead of
+  /// waiting out the 24h TTL on a stale empty cache.
+  static bool get hasApiKey => _readApiKey().isNotEmpty;
+
+  static String _readApiKey() {
+    const defineKey = String.fromEnvironment('YOUTUBE_API_KEY');
+    if (defineKey.isNotEmpty) return defineKey;
+    return dotenv.env['YOUTUBE_API_KEY'] ?? '';
+  }
+
   /// Returns up to [maxResults] videos matching
   /// `"PLANT_NAME traditional medicine africa"`. Results are ordered by
   /// YouTube's relevance ranking.
@@ -26,10 +38,7 @@ class YouTubeService {
     String plantName, {
     int maxResults = 6,
   }) async {
-    const defineKey = String.fromEnvironment('YOUTUBE_API_KEY');
-    final apiKey = defineKey.isNotEmpty
-        ? defineKey
-        : (dotenv.env['YOUTUBE_API_KEY'] ?? '');
+    final apiKey = _readApiKey();
     if (apiKey.isEmpty) {
       // Fail soft: community videos are an enhancement, not a blocker.
       return const [];

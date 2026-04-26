@@ -59,12 +59,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
                 onTap: () async {
-                  final plant =
+                  final match =
                       await PlantRepository.instance.lookup(name);
                   if (!context.mounted) return;
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (_) => PlantDetailScreen(plant: plant),
+                      builder: (_) => PlantDetailScreen(plant: match.plant),
                     ),
                   );
                 },

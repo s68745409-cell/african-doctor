@@ -57,12 +57,12 @@ class _ResultScreenState extends State<ResultScreen> {
     }
     final cache = await CacheService.instance();
     await cache.appendHistory(result.scientificName);
-    final plant = await PlantRepository.instance.lookup(result.scientificName);
+    final match = await PlantRepository.instance.lookup(result.scientificName);
     if (!mounted) return;
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => PlantDetailScreen(
-          plant: plant,
+          plant: match.plant,
           identification: result,
         ),
       ),

@@ -57,10 +57,14 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
     final cached = await cache.readVideos(slug);
     if (cached != null) return cached;
     final fresh = await _yt.searchForPlant(name);
-    // Cache empty results too — the YouTube Data API v3 free tier is
-    // 100 search.list calls/day, and re-querying for a plant that simply
-    // has no matching videos would exhaust that quota quickly.
-    await cache.writeVideos(slug, fresh);
+    // Cache even empty results to preserve the YouTube Data API v3 free-tier
+    // quota (100 search.list calls/day). Exception: if no API key is
+    // configured, searchForPlant returns an empty list *without* making a
+    // request — caching that would block videos from appearing for 24h
+    // after the key is eventually added.
+    if (fresh.isNotEmpty || YouTubeService.hasApiKey) {
+      await cache.writeVideos(slug, fresh);
+    }
     return fresh;
   }
 
