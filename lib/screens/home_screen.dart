@@ -134,11 +134,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _OfflineLibraryList extends StatelessWidget {
+class _OfflineLibraryList extends StatefulWidget {
+  @override
+  State<_OfflineLibraryList> createState() => _OfflineLibraryListState();
+}
+
+class _OfflineLibraryListState extends State<_OfflineLibraryList> {
+  // Cache the future so parent rebuilds (e.g. toggling _busy on the Home
+  // screen) don't restart the load and flash a spinner.
+  late final Future<List<Plant>> _plants = PlantRepository.instance.loadAll();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Plant>>(
-      future: PlantRepository.instance.loadAll(),
+      future: _plants,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());

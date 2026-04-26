@@ -141,6 +141,20 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return const Center(child: CircularProgressIndicator());
                 }
+                if (snapshot.hasError) {
+                  // Real failure — quota exhausted, 403, offline, etc.
+                  // Don't tell the user to add a key if they already have one.
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'Could not load community videos. Check your '
+                        'network connection and try again later.',
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                  );
+                }
                 final videos = snapshot.data ?? [];
                 if (videos.isEmpty) {
                   return Card(
