@@ -32,6 +32,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
       body: FutureBuilder<List<String>>(
         future: _future,
         builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.all(24),
+                child: Text(
+                  'Could not load scan history.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          }
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -64,7 +75,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   if (!context.mounted) return;
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (_) => PlantDetailScreen(plant: match.plant),
+                      // Pass `name` as fallbackName so the detail screen
+                      // still shows the original label (and loads community
+                      // videos) for plants we don't have seed entries for.
+                      builder: (_) => PlantDetailScreen(
+                        plant: match.plant,
+                        fallbackName: name,
+                      ),
                     ),
                   );
                 },

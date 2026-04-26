@@ -149,6 +149,17 @@ class _OfflineLibraryListState extends State<_OfflineLibraryList> {
     return FutureBuilder<List<Plant>>(
       future: _plants,
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: Text(
+                'Failed to load the offline plant library.',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }

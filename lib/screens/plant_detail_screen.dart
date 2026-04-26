@@ -15,6 +15,7 @@ class PlantDetailScreen extends StatefulWidget {
     super.key,
     required this.plant,
     this.identification,
+    this.fallbackName,
   });
 
   /// May be null if we could not find a seed entry for this scientific name.
@@ -22,6 +23,11 @@ class PlantDetailScreen extends StatefulWidget {
 
   /// The Pl@ntNet result that led us here, if any.
   final IdentificationResult? identification;
+
+  /// Plain display/lookup name used when neither [plant] nor [identification]
+  /// is available (e.g. when opening a history entry whose species isn't in
+  /// the seed DB). Drives the screen title and community-video search.
+  final String? fallbackName;
 
   @override
   State<PlantDetailScreen> createState() => _PlantDetailScreenState();
@@ -34,6 +40,7 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
   String get _lookupName {
     return widget.plant?.scientificName ??
         widget.identification?.scientificName ??
+        widget.fallbackName ??
         '';
   }
 
@@ -79,6 +86,7 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
     final theme = Theme.of(context);
     final title = plant?.displayName ??
         widget.identification?.scientificName ??
+        widget.fallbackName ??
         'Unknown plant';
     return Scaffold(
       appBar: AppBar(title: Text(title)),
@@ -86,7 +94,10 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           if (plant == null)
-            _UnknownPlantCard(identification: widget.identification)
+            _UnknownPlantCard(
+              identification: widget.identification,
+              fallbackName: widget.fallbackName,
+            )
           else ...[
             _HeaderCard(plant: plant),
             const SizedBox(height: 16),
@@ -334,8 +345,12 @@ class _Section extends StatelessWidget {
 }
 
 class _UnknownPlantCard extends StatelessWidget {
-  const _UnknownPlantCard({required this.identification});
+  const _UnknownPlantCard({
+    required this.identification,
+    this.fallbackName,
+  });
   final IdentificationResult? identification;
+  final String? fallbackName;
 
   @override
   Widget build(BuildContext context) {
@@ -348,7 +363,9 @@ class _UnknownPlantCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              identification?.scientificName ?? 'Unknown plant',
+              identification?.scientificName ??
+                  fallbackName ??
+                  'Unknown plant',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
