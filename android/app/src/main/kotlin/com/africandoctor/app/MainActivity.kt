@@ -1,4 +1,4 @@
-package ai.devin.african_doctor.african_doctor
+package com.africandoctor.app
 
 import io.flutter.embedding.android.FlutterActivity
 
