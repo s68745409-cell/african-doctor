@@ -7,13 +7,20 @@ import 'screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // .env.example ships as an asset with placeholder values. To supply real
-  // API keys, either edit the file locally (it is gitignored) or pass them
-  // via --dart-define at build time — the services check both.
+  // Load env vars from the bundled asset. `.env` is the developer's real
+  // file (gitignored); `.env.example` is the committed template with empty
+  // placeholders and ships so fresh clones still have *some* asset to load.
+  // --dart-define values are ALWAYS preferred over dotenv — see the
+  // services' _readEnv helpers — so CI / production builds can skip files
+  // entirely.
   try {
-    await dotenv.load(fileName: '.env.example');
+    await dotenv.load(fileName: '.env');
   } catch (_) {
-    // ignore — the services will also look at --dart-define values.
+    try {
+      await dotenv.load(fileName: '.env.example');
+    } catch (_) {
+      // No env asset bundled. Services fall back to --dart-define.
+    }
   }
   final cache = await CacheService.instance();
   runApp(AfricanDoctorApp(showDisclaimer: !cache.hasAcceptedDisclaimer));

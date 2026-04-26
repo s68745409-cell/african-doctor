@@ -57,17 +57,24 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Configuration
 
 Copy `.env.example` to your local `.env` (gitignored) **or** pass the keys at
-build time with `--dart-define`:
+build time with `--dart-define`. The helper script `scripts/prepare_env.sh`
+will create an empty `.env` for you if one doesn't exist (needed so the
+Flutter asset bundler can include the file) — CI runs it automatically.
 
 ```bash
 # Option A — local .env file (easiest for development)
-cp .env.example .env
+./scripts/prepare_env.sh    # creates .env from .env.example if missing
 # then edit .env and paste your keys
 
-# Option B — pass keys at build/run time (recommended for CI)
+# Option B — pass keys at build/run time (recommended for CI / production)
+./scripts/prepare_env.sh    # still needed so the asset bundle has a file
 flutter run \
   --dart-define=YOUTUBE_API_KEY=yk_xxx
 ```
+
+**`--dart-define` takes precedence over the `.env` file**, so you can safely
+leave empty placeholders in `.env` and inject real keys at build time — this
+is how the Play Store AAB is built.
 
 If `YOUTUBE_API_KEY` is missing the "Community wisdom" section simply
 renders a note asking the user to add a key — the rest of the app works

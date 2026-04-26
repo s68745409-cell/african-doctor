@@ -44,6 +44,11 @@ flutter:
 
   assets:
     - assets/data/plants.json
+    # Two env assets are listed. The build expects both files to exist; a
+    # pre-build step (`./scripts/prepare_env.sh` — run from `flutter pub get`
+    # hooks, CI, and locally before `flutter run`) copies `.env.example` to
+    # `.env` when the latter is absent, so fresh clones never fail to build.
+    - .env
     - .env.example
 
   # fonts can be added later
