@@ -39,6 +39,22 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Future<void> _openDetail(IdentificationResult result) async {
+    // Safety-critical: never open medicinal detail for a low-confidence
+    // suggestion, even one chosen from the 'Other possibilities' list.
+    // Surface the same refusal message the primary result shows.
+    if (result.score < AppConstants.minConfidence) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Only ${result.scorePercent}% confident — please consult a '
+            'local expert before using this plant.',
+          ),
+          duration: const Duration(seconds: 4),
+        ),
+      );
+      return;
+    }
     final cache = await CacheService.instance();
     await cache.appendHistory(result.scientificName);
     final plant = await PlantRepository.instance.lookup(result.scientificName);
@@ -176,16 +192,26 @@ class _ResultView extends StatelessWidget {
           Text('Other possibilities', style: theme.textTheme.titleMedium),
           const SizedBox(height: 8),
           ...others.map(
-            (r) => ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                r.scientificName,
-                style: const TextStyle(fontStyle: FontStyle.italic),
-              ),
-              subtitle: Text(r.commonNames.join(', ')),
-              trailing: ConfidenceBadge(score: r.score, compact: true),
-              onTap: () => onOpen(r),
-            ),
+            (r) {
+              final tappable = r.score >= AppConstants.minConfidence;
+              return ListTile(
+                contentPadding: EdgeInsets.zero,
+                enabled: tappable,
+                title: Text(
+                  r.scientificName,
+                  style: const TextStyle(fontStyle: FontStyle.italic),
+                ),
+                subtitle: Text(
+                  tappable
+                      ? r.commonNames.join(', ')
+                      : '${r.commonNames.join(', ')}  — below '
+                          '${(AppConstants.minConfidence * 100).round()}% '
+                          'confidence, cannot show medicinal info.',
+                ),
+                trailing: ConfidenceBadge(score: r.score, compact: true),
+                onTap: tappable ? () => onOpen(r) : null,
+              );
+            },
           ),
         ],
       ],

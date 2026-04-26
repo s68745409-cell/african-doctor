@@ -38,17 +38,18 @@ class HuggingFaceService {
 
   Future<List<IdentificationResult>> identify({required File image}) async {
     final explicitEndpoint = _readEnv('HF_ENDPOINT_URL');
-    final endpoint = explicitEndpoint.isNotEmpty
-        ? explicitEndpoint
-        : AppConstants.defaultHfSpaceUrl;
+    final modelId = _readEnv('HF_MODEL_ID');
 
-    final useSpaceApi = endpoint.contains('.hf.space') ||
-        endpoint.endsWith('/api/classify') ||
-        _readEnv('HF_MODEL_ID').isEmpty;
+    // Router mode is chosen explicitly when the caller has set HF_MODEL_ID
+    // *without* overriding the endpoint. Otherwise we always post to a
+    // Space-style /api/classify URL (the default Space, or whatever they
+    // put in HF_ENDPOINT_URL).
+    final useRouter = explicitEndpoint.isEmpty && modelId.isNotEmpty;
+    if (useRouter) return _identifyViaRouter(image: image);
 
-    return useSpaceApi
-        ? _identifyViaSpace(endpoint: endpoint, image: image)
-        : _identifyViaRouter(image: image);
+    final endpoint =
+        explicitEndpoint.isNotEmpty ? explicitEndpoint : AppConstants.defaultHfSpaceUrl;
+    return _identifyViaSpace(endpoint: endpoint, image: image);
   }
 
   Future<List<IdentificationResult>> _identifyViaSpace({
