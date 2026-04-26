@@ -1,0 +1,254 @@
+{
+  "_meta": {
+    "version": "0.1.0",
+    "note": "SEED DATA ONLY. Compiled from widely-published ethnobotanical references for MVP testing. This data MUST be verified with licensed botanists and traditional healers before any production release. Each entry should be replaced with a 'verified_by' signature from a partnering institution (e.g. a traditional healers' association or a university herbarium).",
+    "disclaimer": "All content is for educational and identification purposes only and is NOT a substitute for professional medical advice, diagnosis, or treatment.",
+    "last_updated": "2026-04-25"
+  },
+  "plants": [
+    {
+      "scientific_name": "Moringa oleifera",
+      "common_names": ["Moringa", "Drumstick tree", "Horseradish tree"],
+      "local_names": {
+        "Bemba": "Muringa",
+        "Nyanja": "Zakalanda",
+        "Swahili": "Mlonge",
+        "Shona": "Muringa",
+        "Yoruba": "Ewe igbale"
+      },
+      "region": "Widely cultivated across Sub-Saharan Africa, originally from the sub-Himalayas",
+      "part_used": ["leaves", "seeds", "bark", "roots"],
+      "primary_use": "Nutritional supplement rich in vitamins A, C, and calcium; traditionally used for general weakness, anaemia and as a mild anti-inflammatory.",
+      "preparation": "Fresh or dried leaves are boiled into a tea (1 tablespoon dried leaves per cup of water, steep 5–10 min) or added to soups and porridge. Seeds are occasionally used for water purification.",
+      "warnings": "Root and root bark contain alkaloids and are NOT safe for pregnant women. Seeds in large quantities can cause diarrhoea. Do not replace prescribed medication without consulting a clinician.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Small ovate leaflets in opposite pairs on a feathery compound leaf; long pod-like seed capsules (drumsticks)."
+    },
+    {
+      "scientific_name": "Azadirachta indica",
+      "common_names": ["Neem", "Indian lilac"],
+      "local_names": {
+        "Swahili": "Mwarubaini",
+        "Hausa": "Dogon yaro",
+        "Yoruba": "Dongoyaro"
+      },
+      "region": "Widely naturalised in East, West and Southern Africa",
+      "part_used": ["leaves", "bark", "seeds"],
+      "primary_use": "Traditionally used against malaria, skin infections, and as a mild antiseptic mouthwash.",
+      "preparation": "A decoction of fresh leaves (a handful boiled in 1 L water for 15 min) is taken in small cups. Twigs are chewed as a traditional toothbrush.",
+      "warnings": "Bitter and can be hepatotoxic in high doses. NOT safe for infants or pregnant women. Neem oil is strictly for external use.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Compound leaves with 8–19 serrated leaflets; small white fragrant flowers; yellow olive-like drupes."
+    },
+    {
+      "scientific_name": "Aloe vera",
+      "common_names": ["Aloe", "True aloe"],
+      "local_names": {
+        "Swahili": "Mshubiri",
+        "Bemba": "Icikolwe",
+        "Nyanja": "Chitembwe"
+      },
+      "region": "Widely cultivated across the continent; many closely-related endemic species (e.g. A. ferox, A. arborescens) are used similarly",
+      "part_used": ["leaf gel"],
+      "primary_use": "Topical treatment of minor burns, skin irritation and insect bites; the inner gel is also used for mild constipation.",
+      "preparation": "Slit a mature leaf lengthwise and apply the clear inner gel directly to the skin. Avoid the yellow latex just beneath the skin — it is a strong purgative.",
+      "warnings": "The yellow latex (aloin) is a powerful laxative and is not safe during pregnancy or for people with kidney disease. Oral use for longer than a week is not recommended.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Thick fleshy green lance-shaped leaves with white serrations along the edges, growing in a rosette."
+    },
+    {
+      "scientific_name": "Artemisia afra",
+      "common_names": ["African wormwood", "African sagewood"],
+      "local_names": {
+        "Zulu": "Umhlonyane",
+        "Xhosa": "Umhlonyane",
+        "Sotho": "Lengana",
+        "Afrikaans": "Wilde-als"
+      },
+      "region": "Southern and Eastern Africa (highlands of South Africa, Lesotho, Ethiopia)",
+      "part_used": ["leaves"],
+      "primary_use": "Traditionally used for colds, coughs, fevers and digestive complaints.",
+      "preparation": "A few fresh leaves are steeped in hot water for 5 minutes to make a bitter tea, or the leaves are inhaled as steam for blocked sinuses.",
+      "warnings": "Contains thujone. NOT safe during pregnancy, breastfeeding, or for people with seizure disorders. Use for no more than 3–5 days at a time.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Finely dissected grey-green aromatic leaves; small yellow flower heads; strong sage-like smell when crushed."
+    },
+    {
+      "scientific_name": "Hibiscus sabdariffa",
+      "common_names": ["Roselle", "Sorrel", "Bissap"],
+      "local_names": {
+        "Hausa": "Zobo",
+        "Wolof": "Bissap",
+        "Swahili": "Choya",
+        "Bemba": "Katolo"
+      },
+      "region": "Widely grown across West, Central and East Africa",
+      "part_used": ["calyces (dried red sepals)"],
+      "primary_use": "Traditionally used as a mild diuretic and to support cardiovascular health; popular as a cooling drink (zobo / bissap / karkade).",
+      "preparation": "A handful of dried calyces is steeped in hot water with optional ginger and sugar to make a red tea.",
+      "warnings": "May lower blood pressure — use with caution if already on anti-hypertensive medication. NOT recommended in large amounts during pregnancy.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Deep red, fleshy, cup-shaped calyces around the seed pod; lobed green leaves with a reddish stem."
+    },
+    {
+      "scientific_name": "Zingiber officinale",
+      "common_names": ["Ginger"],
+      "local_names": {
+        "Swahili": "Tangawizi",
+        "Yoruba": "Atale",
+        "Hausa": "Chitta",
+        "Bemba": "Tangawizi"
+      },
+      "region": "Cultivated throughout tropical Africa",
+      "part_used": ["rhizome"],
+      "primary_use": "Nausea, indigestion, colds, and sore throat.",
+      "preparation": "Fresh rhizome is sliced and boiled in water (5–10 min) to make tea, often with lemon and honey.",
+      "warnings": "Large doses may increase bleeding risk — avoid before surgery or when on blood thinners. Generally safe in culinary amounts.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Knobbly, pale tan rhizome with fibrous interior; reed-like leafy stems growing from the rhizome."
+    },
+    {
+      "scientific_name": "Sutherlandia frutescens",
+      "common_names": ["Cancer bush", "Balloon pea"],
+      "local_names": {
+        "Afrikaans": "Kankerbos",
+        "Sotho": "Phetola",
+        "Zulu": "Unwele"
+      },
+      "region": "Southern Africa (South Africa, Namibia, Botswana)",
+      "part_used": ["leaves", "stems"],
+      "primary_use": "Traditionally used as a general tonic for stress, fatigue, and loss of appetite.",
+      "preparation": "A teaspoon of dried leaves steeped in hot water for 5 minutes, taken up to three times a day.",
+      "warnings": "Bitter; NOT safe during pregnancy. Interactions with antiretrovirals are possible — people on HIV medication should consult a clinician first.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Silvery-grey pinnate leaves; bright red-orange pea-shaped flowers; inflated papery seed pods."
+    },
+    {
+      "scientific_name": "Harpagophytum procumbens",
+      "common_names": ["Devil's claw"],
+      "local_names": {
+        "Afrikaans": "Duiwelsklou",
+        "Tswana": "Sengaparile"
+      },
+      "region": "Kalahari desert and surrounding savannahs (Namibia, Botswana, South Africa)",
+      "part_used": ["secondary tubers (storage roots)"],
+      "primary_use": "Traditionally used for arthritis, back pain, and digestive complaints.",
+      "preparation": "Dried tuber is simmered (1 teaspoon in 1 cup water for 10 min) to make a bitter tea. Also available as capsules.",
+      "warnings": "NOT safe for people with stomach ulcers or gallstones, and not during pregnancy. May interact with blood-thinners and diabetes medication.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Sprawling herb with lobed leaves; striking pinkish trumpet flowers; distinctive woody fruits covered in hooked claws."
+    },
+    {
+      "scientific_name": "Prunus africana",
+      "common_names": ["African cherry", "Red stinkwood"],
+      "local_names": {
+        "Swahili": "Mueri",
+        "Kikuyu": "Muiri",
+        "Zulu": "Inyazangoma-elimnyama"
+      },
+      "region": "Highland forests of East, Central and Southern Africa",
+      "part_used": ["bark"],
+      "primary_use": "Traditionally used for urinary complaints and benign prostate hyperplasia (BPH).",
+      "preparation": "A small amount of dried bark is decocted in water for 10 minutes and taken as tea.",
+      "warnings": "The species is listed on CITES Appendix II — only harvest from sustainably managed sources. Overharvesting threatens wild populations. Consult a clinician for prostate issues.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Large evergreen tree with rough dark bark; lance-shaped leathery leaves with a serrated edge; small white flowers; purple-black cherry-like fruits."
+    },
+    {
+      "scientific_name": "Warburgia salutaris",
+      "common_names": ["Pepper-bark tree"],
+      "local_names": {
+        "Zulu": "Isibaha",
+        "Shona": "Muranga"
+      },
+      "region": "Southern Africa (South Africa, Zimbabwe, Mozambique)",
+      "part_used": ["bark", "leaves"],
+      "primary_use": "Traditionally used for colds, chest complaints and fungal infections.",
+      "preparation": "A very small piece of bark is chewed for a peppery warmth in the chest, or leaves are steeped in hot water.",
+      "warnings": "Endangered species — the bark must be harvested only from cultivated trees or ethically managed reserves. Avoid during pregnancy.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Medium-sized tree; glossy leaves with a distinctive peppery taste when chewed."
+    },
+    {
+      "scientific_name": "Vernonia amygdalina",
+      "common_names": ["Bitter leaf"],
+      "local_names": {
+        "Yoruba": "Ewuro",
+        "Igbo": "Onugbu",
+        "Swahili": "Mlozilozi"
+      },
+      "region": "West, Central and East Africa",
+      "part_used": ["leaves"],
+      "primary_use": "Traditionally used for diabetes, fevers, intestinal parasites and as a digestive tonic.",
+      "preparation": "Leaves are washed and squeezed thoroughly in water to remove bitterness, then added to soups (bitter-leaf soup), or leaf juice is taken in small amounts.",
+      "warnings": "Excessive intake may lower blood sugar significantly — risky for people already on diabetes medication. Avoid in pregnancy due to possible uterine effects.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Soft-wooded shrub with elongated green leaves; very bitter taste; small clusters of off-white flower heads."
+    },
+    {
+      "scientific_name": "Cassia abbreviata",
+      "common_names": ["Sjambok pod", "Long-tail cassia"],
+      "local_names": {
+        "Bemba": "Mululwe",
+        "Nyanja": "Mulule",
+        "Shona": "Muremberembe"
+      },
+      "region": "Miombo woodlands of Southern and Central Africa (Zambia, Zimbabwe, Malawi, Mozambique)",
+      "part_used": ["root bark", "bark"],
+      "primary_use": "Traditionally used for stomach pain, malaria, and STIs in parts of Zambia and Zimbabwe.",
+      "preparation": "Small pieces of root bark are boiled for 10–15 min and the decoction is taken in small cups.",
+      "warnings": "Strong and potentially toxic in excess — overdose has been linked to abortion and kidney strain. Do not self-medicate; consult a trained healer.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Small tree with bright yellow flowers and very long, slender, dark brown seed pods (up to 60 cm)."
+    },
+    {
+      "scientific_name": "Adansonia digitata",
+      "common_names": ["Baobab", "Upside-down tree"],
+      "local_names": {
+        "Swahili": "Mbuyu",
+        "Bemba": "Mubuyu",
+        "Hausa": "Kuka",
+        "Wolof": "Guy"
+      },
+      "region": "Savannahs across Sub-Saharan Africa",
+      "part_used": ["fruit pulp", "leaves", "bark"],
+      "primary_use": "Fruit pulp is a rich source of vitamin C and used for diarrhoea and fevers; leaves are used as a vegetable and for respiratory complaints.",
+      "preparation": "Fruit pulp is dissolved in water or milk to make a tangy drink. Young leaves are boiled as a relish.",
+      "warnings": "Generally safe in food amounts. Bark and root preparations should only be used under supervision; over-harvesting damages the tree.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Massive swollen trunk; compound leaves with 5–7 leaflets arranged like fingers; large pendulous woody fruits."
+    },
+    {
+      "scientific_name": "Carica papaya",
+      "common_names": ["Papaya", "Pawpaw"],
+      "local_names": {
+        "Swahili": "Papai",
+        "Bemba": "Ipapa",
+        "Yoruba": "Ibepe"
+      },
+      "region": "Widely cultivated across tropical Africa",
+      "part_used": ["leaves", "unripe fruit", "seeds"],
+      "primary_use": "Leaves used traditionally for fever and as a platelet-supportive remedy (e.g. in dengue-endemic areas); seeds for intestinal parasites.",
+      "preparation": "A few fresh leaves are blended with water and filtered; a small cup is taken once daily. Seeds can be chewed (up to 1 teaspoon per day).",
+      "warnings": "Unripe papaya and leaf preparations are NOT safe during pregnancy. Stop if any stomach pain occurs.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Palm-like unbranched trunk; large deeply-lobed leaves clustered at the top; oblong fruits with orange flesh and black seeds."
+    },
+    {
+      "scientific_name": "Tamarindus indica",
+      "common_names": ["Tamarind"],
+      "local_names": {
+        "Swahili": "Mkwaju",
+        "Hausa": "Tsamiya",
+        "Bemba": "Mushishi"
+      },
+      "region": "Common across Sub-Saharan Africa",
+      "part_used": ["fruit pulp", "leaves", "bark"],
+      "primary_use": "Fruit pulp is a mild laxative and cooling digestive; leaf decoctions are used for fevers.",
+      "preparation": "Pulp is soaked in warm water and the resulting sour liquid is drunk as a cooler or digestive.",
+      "warnings": "Generally safe in culinary amounts. Large laxative doses can cause cramping.",
+      "verified_by": "SEED DATA — pending partner verification",
+      "image_hints": "Large evergreen tree with feathery pinnate leaves; brown, brittle pods filled with sticky sour pulp and hard seeds."
+    }
+  ]
+}

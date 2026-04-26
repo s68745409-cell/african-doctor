@@ -1,0 +1,54 @@
+name: african_doctor
+description: "African Doctor — identify African medicinal plants by camera and learn their traditional uses, preparation, and safety warnings."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Camera / image capture
+  image_picker: ^1.1.2
+
+  # Networking
+  http: ^1.2.2
+
+  # Offline persistence
+  shared_preferences: ^2.3.3
+  path_provider: ^2.1.5
+
+  # Deep links / opening external apps
+  url_launcher: ^6.3.1
+
+  # Env vars loading at runtime (for API keys)
+  flutter_dotenv: ^5.2.1
+
+  # Localization
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/data/plants.json
+    # Two env assets are listed. The build expects both files to exist; a
+    # pre-build step (`./scripts/prepare_env.sh` — run from `flutter pub get`
+    # hooks, CI, and locally before `flutter run`) copies `.env.example` to
+    # `.env` when the latter is absent, so fresh clones never fail to build.
+    - .env
+    - .env.example
+
+  # fonts can be added later
