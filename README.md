@@ -13,8 +13,10 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Features
 
 - **Camera capture / gallery upload** — identify any plant from a photo.
-- **Pl@ntNet identification** — the Pl@ntNet v2 REST API returns a ranked list
-  of candidate species with a confidence score.
+- **Plant.id identification** — the [Plant.id v3 REST API](https://web.plant.id/)
+  returns a ranked list of candidate species with a confidence score (free
+  tier: 100 identifications). The legacy Pl@ntNet integration is kept in
+  `IdentificationResult.fromPlantNetJson` for easy provider-switching.
 - **85 % confidence threshold** — below this, the app refuses to display
   traditional-medicine information and tells the user to consult a local
   expert.
@@ -39,7 +41,7 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Prerequisites
 
 - Flutter **≥ 3.41** (stable channel).
-- A [Pl@ntNet API key](https://my.plantnet.org/) (free tier: 500 IDs / day).
+- A [Plant.id API key](https://web.plant.id/) (free tier: 100 IDs).
 - A [YouTube Data API v3 key](https://console.cloud.google.com/apis/credentials)
   (free quota).
 
@@ -55,11 +57,11 @@ cp .env.example .env
 
 # Option B — pass keys at build/run time (recommended for CI)
 flutter run \
-  --dart-define=PLANTNET_API_KEY=pk_xxx \
+  --dart-define=PLANT_ID_API_KEY=pk_xxx \
   --dart-define=YOUTUBE_API_KEY=yk_xxx
 ```
 
-If `PLANTNET_API_KEY` is missing the identification screen shows an error. If
+If `PLANT_ID_API_KEY` is missing the identification screen shows an error. If
 `YOUTUBE_API_KEY` is missing the "Community wisdom" section simply renders a
 note asking the user to add a key — the rest of the app works fine.
 
@@ -85,7 +87,7 @@ lib/
 ├── data/plant_repository.dart    # loads assets/data/plants.json
 ├── models/                       # Plant, IdentificationResult, CommunityVideo
 ├── services/
-│   ├── plantnet_service.dart     # Pl@ntNet v2 /identify client
+│   ├── plant_id_service.dart     # Plant.id v3 /identification client
 │   ├── youtube_service.dart      # YouTube search + TikTok deep link
 │   └── cache_service.dart        # SharedPreferences-backed cache
 ├── screens/

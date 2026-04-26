@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import '../data/plant_repository.dart';
 import '../models/identification_result.dart';
 import '../services/cache_service.dart';
-import '../services/plantnet_service.dart';
+import '../services/plant_id_service.dart';
 import '../utils/constants.dart';
 import '../widgets/confidence_badge.dart';
 import 'plant_detail_screen.dart';
 
-/// Shows the Pl@ntNet identification result for a captured image and routes
+/// Shows the Plant.id identification result for a captured image and routes
 /// the user into the plant-detail screen when confidence is high enough.
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key, required this.image});
@@ -22,7 +22,7 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  final _service = PlantNetService();
+  final _service = PlantIdService();
   late Future<List<IdentificationResult>> _future;
 
   @override
@@ -72,7 +72,9 @@ class _ResultScreenState extends State<ResultScreen> {
           final results = snapshot.data ?? [];
           if (results.isEmpty) {
             return const _NoMatchView(
-              reason: 'Pl@ntNet did not return any suggestions for this image.',
+              reason:
+                  'Plant.id did not return any suggestions for this image. '
+                  'Try a clearer photo of a single leaf on a plain background.',
             );
           }
           final best = results.first;

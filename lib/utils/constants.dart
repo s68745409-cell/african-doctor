@@ -14,7 +14,12 @@ class AppConstants {
   /// Maximum Pl@ntNet suggestions to consider from the API response.
   static const int maxSuggestions = 5;
 
-  /// Pl@ntNet REST endpoint.
+  /// Plant.id v3 identification endpoint — current default provider.
+  static const String plantIdEndpoint =
+      'https://api.plant.id/v3/identification';
+
+  /// Pl@ntNet REST endpoint — kept for reference so a future session can
+  /// swap providers back without re-deriving the URL.
   static const String plantNetEndpoint =
       'https://my-api.plantnet.org/v2/identify/all';
 
