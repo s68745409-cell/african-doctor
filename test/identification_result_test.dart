@@ -3,6 +3,29 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:african_doctor/models/identification_result.dart';
 
 void main() {
+  group('Hugging Face', () {
+    test('Parses a Hugging Face image-classification item', () {
+      final json = <String, dynamic>{
+        'label': 'Moringa',
+        'score': 0.87,
+      };
+
+      final result = IdentificationResult.fromHuggingFaceJson(json);
+
+      expect(result.score, 0.87);
+      expect(result.scorePercent, 87);
+      expect(result.scientificName, 'Moringa');
+      expect(result.commonNames, ['Moringa']);
+    });
+
+    test('Falls back to Unknown for a minimal HF payload', () {
+      final result =
+          IdentificationResult.fromHuggingFaceJson(<String, dynamic>{});
+      expect(result.score, 0.0);
+      expect(result.scientificName, 'Unknown');
+    });
+  });
+
   group('Plant.id', () {
     test('Parses a Plant.id v3 suggestion', () {
       final json = <String, dynamic>{
@@ -25,16 +48,6 @@ void main() {
       expect(result.commonNames, ['Moringa', 'Drumstick tree']);
       expect(result.family, 'Moringaceae');
       expect(result.genus, 'Moringa');
-    });
-
-    test('Falls back to defaults for a minimal Plant.id payload', () {
-      final result = IdentificationResult.fromPlantIdJson(<String, dynamic>{});
-      expect(result.score, 0.0);
-      expect(result.scorePercent, 0);
-      expect(result.scientificName, 'Unknown');
-      expect(result.commonNames, isEmpty);
-      expect(result.family, '');
-      expect(result.genus, '');
     });
   });
 

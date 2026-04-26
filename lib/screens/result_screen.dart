@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import '../data/plant_repository.dart';
 import '../models/identification_result.dart';
 import '../services/cache_service.dart';
-import '../services/plant_id_service.dart';
+import '../services/huggingface_service.dart';
 import '../utils/constants.dart';
 import '../widgets/confidence_badge.dart';
 import 'plant_detail_screen.dart';
 
-/// Shows the Plant.id identification result for a captured image and routes
-/// the user into the plant-detail screen when confidence is high enough.
+/// Shows the Hugging Face identification result for a captured image and
+/// routes the user into the plant-detail screen when confidence is high
+/// enough.
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key, required this.image});
 
@@ -22,7 +23,7 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  final _service = PlantIdService();
+  final _service = HuggingFaceService();
   late Future<List<IdentificationResult>> _future;
 
   @override
@@ -73,7 +74,7 @@ class _ResultScreenState extends State<ResultScreen> {
           if (results.isEmpty) {
             return const _NoMatchView(
               reason:
-                  'Plant.id did not return any suggestions for this image. '
+                  'The model did not return any suggestions for this image. '
                   'Try a clearer photo of a single leaf on a plain background.',
             );
           }

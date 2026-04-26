@@ -2,13 +2,15 @@ import 'package:flutter/foundation.dart';
 
 /// A single plant suggestion from a plant-identification provider.
 ///
-/// Two factory constructors are provided so we can swap providers without
+/// Three factory constructors are provided so we can swap providers without
 /// touching the UI layer:
 ///
+/// * [IdentificationResult.fromHuggingFaceJson] — current default. Parses an
+///   HF image-classification item (`{"label": "Moringa", "score": 0.9}`).
 /// * [IdentificationResult.fromPlantIdJson] — Plant.id v3 `classification`
-///   suggestion (the current default).
+///   suggestion.
 /// * [IdentificationResult.fromPlantNetJson] — legacy Pl@ntNet v2 /identify
-///   result, kept for reference.
+///   result.
 @immutable
 class IdentificationResult {
   /// Confidence score in [0.0, 1.0].
@@ -25,6 +27,21 @@ class IdentificationResult {
     required this.family,
     required this.genus,
   });
+
+  factory IdentificationResult.fromHuggingFaceJson(Map<String, dynamic> json) {
+    // HF labels are usually common names ("Moringa", "Neem") — we surface
+    // them as the scientificName so downstream lookup works via either the
+    // common-name or genus path in PlantRepository. Scientific lookup still
+    // wins when the label happens to be a binomial.
+    final label = (json['label'] as String? ?? 'Unknown').trim();
+    return IdentificationResult(
+      score: (json['score'] as num?)?.toDouble() ?? 0.0,
+      scientificName: label,
+      commonNames: <String>[label],
+      family: '',
+      genus: '',
+    );
+  }
 
   factory IdentificationResult.fromPlantIdJson(Map<String, dynamic> json) {
     final details = json['details'] as Map<String, dynamic>? ?? {};

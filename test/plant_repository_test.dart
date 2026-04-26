@@ -43,4 +43,16 @@ void main() {
     final p = await PlantRepository.instance.lookup('Quercus robur');
     expect(p, isNull);
   });
+
+  test('Lookup matches common name (Hugging Face label)', () async {
+    final p = await PlantRepository.instance.lookup('Moringa');
+    expect(p, isNotNull);
+    expect(p!.scientificName, 'Moringa oleifera');
+  });
+
+  test('Lookup matches by substring for noisy HF labels', () async {
+    final p = await PlantRepository.instance.lookup('papaya plant leaf');
+    expect(p, isNotNull);
+    expect(p!.scientificName, 'Carica papaya');
+  });
 }

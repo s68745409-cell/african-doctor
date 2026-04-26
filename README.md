@@ -13,10 +13,11 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Features
 
 - **Camera capture / gallery upload** — identify any plant from a photo.
-- **Plant.id identification** — the [Plant.id v3 REST API](https://web.plant.id/)
-  returns a ranked list of candidate species with a confidence score (free
-  tier: 100 identifications). The legacy Pl@ntNet integration is kept in
-  `IdentificationResult.fromPlantNetJson` for easy provider-switching.
+- **Hugging Face identification** — plant photos are classified by an HF
+  `image-classification` model (default: `dima806/medicinal_plants_image_detection`).
+  Override at runtime with `HF_MODEL_ID`. Plant.id and Pl@ntNet factory
+  constructors are retained on `IdentificationResult` so you can swap
+  providers without a refactor.
 - **85 % confidence threshold** — below this, the app refuses to display
   traditional-medicine information and tells the user to consult a local
   expert.
@@ -41,7 +42,9 @@ shows their traditional uses, preparation methods and safety warnings.
 ## Prerequisites
 
 - Flutter **≥ 3.41** (stable channel).
-- A [Plant.id API key](https://web.plant.id/) (free tier: 100 IDs).
+- A [Hugging Face account](https://huggingface.co/join) with a Read-only
+  [API token](https://huggingface.co/settings/tokens). Signup is 30 seconds,
+  email + password, no approval.
 - A [YouTube Data API v3 key](https://console.cloud.google.com/apis/credentials)
   (free quota).
 
@@ -57,13 +60,15 @@ cp .env.example .env
 
 # Option B — pass keys at build/run time (recommended for CI)
 flutter run \
-  --dart-define=PLANT_ID_API_KEY=pk_xxx \
+  --dart-define=HF_API_TOKEN=hf_xxx \
   --dart-define=YOUTUBE_API_KEY=yk_xxx
 ```
 
-If `PLANT_ID_API_KEY` is missing the identification screen shows an error. If
-`YOUTUBE_API_KEY` is missing the "Community wisdom" section simply renders a
-note asking the user to add a key — the rest of the app works fine.
+If `HF_API_TOKEN` is missing the identification screen shows an error and
+links to the HF signup page. If `YOUTUBE_API_KEY` is missing the "Community
+wisdom" section simply renders a note asking the user to add a key — the
+rest of the app works fine (the offline seed library and scan history do
+not need any keys).
 
 ## Running
 
@@ -87,7 +92,8 @@ lib/
 ├── data/plant_repository.dart    # loads assets/data/plants.json
 ├── models/                       # Plant, IdentificationResult, CommunityVideo
 ├── services/
-│   ├── plant_id_service.dart     # Plant.id v3 /identification client
+│   ├── huggingface_service.dart  # HF image-classification client (default)
+│   ├── plant_id_service.dart     # Plant.id v3 /identification client (kept)
 │   ├── youtube_service.dart      # YouTube search + TikTok deep link
 │   └── cache_service.dart        # SharedPreferences-backed cache
 ├── screens/
